@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:39:24 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/09 17:18:48 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/10 09:23:08 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,15 @@ static void	init_fdfiles(int *fd_files, int is_heredoc, int argc, char **argv)
 
 	fileout = argv[argc - 1];
 	if (is_heredoc)
-	{
 		fd_files[FD_IN] = handle_here_doc(argv[ARG_INDEX_HEREDOC_EOF]);
-		fd_files[FD_OUT] = open(fileout, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	}
 	else
-	{
 		fd_files[FD_IN] = open(argv[ARG_INDEX_FILEIN], O_RDONLY);
-		fd_files[FD_OUT] = open(fileout, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-
-	}
 	if (fd_files[FD_IN] == -1)
 		return (perror(argv[1]), exit(EXIT_FAILURE), (void)init_fdfiles);
+	if (is_heredoc)
+		fd_files[FD_OUT] = open(fileout, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else
+		fd_files[FD_OUT] = open(fileout, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 }
 
 int	main(int argc, char **argv, char **envp)

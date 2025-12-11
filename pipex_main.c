@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:39:24 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/10 09:23:08 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/11 10:38:11 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	handle_here_doc(const char *eof)
 		return (perror("heredoc"), exit(EXIT_FAILURE), -1);
 	while (TRUE)
 	{
-		ft_putstr_fd("heredoc> ", STDOUT_FILENO);
+		ft_putstr_fd("> ", STDOUT_FILENO);
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
 			return (close(pipefds[1]), pipefds[0]);
@@ -90,6 +90,20 @@ static void	init_fdfiles(int *fd_files, int is_heredoc, int argc, char **argv)
 		fd_files[FD_OUT] = open(fileout, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 }
 
+void	verify_args(int is_heredoc, int argc)
+{
+	if (!is_heredoc && argc < 4)
+	{
+		ft_printf(ERR_ARGS_DEFAULT);
+		exit(EXIT_FAILURE);
+	}
+	else if (argc < 5)
+	{
+		ft_printf(ERR_ARGS_HEREDOC);
+		exit(EXIT_FAILURE);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	int		fd_files[2];
@@ -99,6 +113,7 @@ int	main(int argc, char **argv, char **envp)
 	int		i;
 
 	is_heredoc = ft_contains(argv[ARG_INDEX_HEREDOC], HEREDOC);
+	verify_args(is_heredoc, argc);
 	init_fdfiles(fd_files, is_heredoc, argc, argv);
 	fd_cmd[FD_IN] = fd_files[FD_IN];
 	i = get_argv_cmdindex(is_heredoc);
@@ -106,7 +121,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (pipe(fd_pipe) == -1)
 			return (perror("pipe"), exit(EXIT_FAILURE), EXIT_FAILURE);
-		fd_cmd[FD_OUT] = ter_i(i == argc - 2, fd_pipe[1], fd_files[FD_OUT]);
+		fd_cmd[FD_OUT] = ter_i(i == argc - 2, fd_files[FD_OUT], fd_pipe[1]);
 		exec_cmd(t_cmd__new(argv[i], envp, fd_cmd));
 		close(fd_pipe[1]);
 		fd_cmd[FD_IN] = fd_pipe[0];

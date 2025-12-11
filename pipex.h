@@ -6,14 +6,20 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 09:32:54 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/09 16:02:45 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/11 10:38:33 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
+# define NAME "pipex"
 # define HEREDOC "here_doc"
+
+# define ERR_ARGS_DEFAULT "pipex: syntax error \
+<file_in> <cmd1> [cmd2] ... <file_out>\n"
+# define ERR_ARGS_HEREDOC "pipex: syntax error \
+<here_doc> <eof> <cmd1> [cmd2] ... <fileOut>\n"
 
 # define ARG_INDEX_FILEIN 1
 # define ARG_INDEX_FIRST_CMD 2

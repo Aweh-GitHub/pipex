@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:13:16 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/09 16:30:04 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/10 16:02:02 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ void			ft_freesplit(char **split);
 char			*ft_strjoin3(char const *s1, char const *s2, char const *s3);
 void			*ft_first(void **array, void *ref, int (*f)(void *, void *));
 int				ft_contains(const char *str, const char *ref);
+char			*ft_strdecapsulate(char *str, char mark);
+char			cfirst(char *str);
+char			clast(char *str);
+char			is_cfirst(char *str, char cmp);
+char			is_clast(char *str, char cmp);
 char			ter_c(int con, char val_true, char val_false);
 int				ter_i(int con, int val_true, int val_false);
 long unsigned	ter_lu(int con, \

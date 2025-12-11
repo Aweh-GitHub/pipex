@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 17:26:11 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/09 11:05:21 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/11 10:16:56 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*get_path(char *name, char **envp)
 	char	**paths;
 	char	*result_path;
 	size_t	path_i;
-	
+
 	if (name && name[0] == '/')
 		return (ft_strdup(name));
 	paths = ft_split(ft_first((void **)envp, "PATH", (int (*)(void *, void *))ft_contains), ':');

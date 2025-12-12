@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 15:49:53 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/10 16:14:21 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/12 09:59:53 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	clast(char *str)
 {
 	size_t	i;
-	
+
 	if (str == NULL)
 		return ('\0');
 	i = 0;

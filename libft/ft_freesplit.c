@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 17:32:08 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/08 10:54:22 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/12 10:01:55 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_freesplit(char **split)
 	size_t	i;
 
 	if (split == NULL)
-		return;
+		return ;
 	i = 0;
 	while (split[i])
 	{

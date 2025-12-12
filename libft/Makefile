@@ -6,7 +6,7 @@
 #    By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/03 18:59:12 by thantoni          #+#    #+#              #
-#    Updated: 2025/12/11 10:17:42 by thantoni         ###   ########.fr        #
+#    Updated: 2025/12/12 09:56:12 by thantoni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,8 @@ SRCS =	ft_isalpha.c							\
 		extras/cfirst.c							\
 		extras/clast.c							\
 		extras/is_cfirst.c						\
+		extras/is_clast.c						\
+		extras/ft_contains_v.c					\
 		extras/is_clast.c						\
 		ter/ter_c.c								\
 		ter/ter_i.c								\

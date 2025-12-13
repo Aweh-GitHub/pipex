@@ -6,10 +6,11 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 16:13:38 by thantoni          #+#    #+#             */
-/*   Updated: 2025/11/16 12:57:46 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/13 17:22:06 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../libft.h"
 #include "get_next_line.h"
 #include <unistd.h>
 #include <stdlib.h>
@@ -109,6 +110,8 @@ char	*get_next_line(int fd)
 	t_file			*file;
 	char			*line;
 
+	if (fd == GNL_WIPE || fd == ERROR)
+		return (ft_free_all(files), NULL);
 	file = get_file_by_fd(fd, &files);
 	line = fill_line(NULL, file);
 	while (line != NULL && !ft_is_line_completed(line, file))

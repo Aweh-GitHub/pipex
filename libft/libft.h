@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:13:16 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/12 09:54:27 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/13 17:21:53 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stddef.h>
 
+# define GNL_WIPE -4242
+# define ERROR -1
 # define TRUE 1
 # define FALSE 0
 
@@ -43,7 +45,8 @@ char			*ft_strrchr(const char *s, int c);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 void			*ft_memchr(const void *s, int c, size_t n);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
-char			*ft_strnstr(const char *haystack, const char *needle, size_t len);
+char			*ft_strnstr(const char *haystack, \
+	const char *needle, size_t len);
 int				ft_atoi(const char *nptr);
 void			*ft_calloc(size_t nmemb, size_t size);
 char			*ft_strdup(const char *s);
@@ -75,9 +78,12 @@ int				ft_printf(char const *format, ...);
 char			*ft_arraytostr(char **array);
 void			ft_freesplit(char **split);
 char			*ft_strjoin3(char const *s1, char const *s2, char const *s3);
-void			*ft_first(void **array, void *ref, int (*f)(void *, void *));
+void			*ft_first(void **array, void *ref, \
+	int (f)(const void *, const void *));
 int				ft_contains(const char *str, const char *ref);
 int				ft_contains_v(const void *ptr, const void *cmp);
+int				ft_contains_at(char *str, char *cmp, size_t at_index);
+int				ft_startwith(char *str, char *cmp);
 char			*ft_strdecapsulate(char *str, char mark);
 char			cfirst(char *str);
 char			clast(char *str);
@@ -89,6 +95,5 @@ long unsigned	ter_lu(int con, \
 	long unsigned val_true, long unsigned val_false);
 void			*ter_p(int con, void *val_true, void *val_false);
 char			*ter_s(int con, char *val_true, char *val_false);
-
 
 #endif

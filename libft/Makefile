@@ -6,7 +6,7 @@
 #    By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/03 18:59:12 by thantoni          #+#    #+#              #
-#    Updated: 2025/12/12 09:56:12 by thantoni         ###   ########.fr        #
+#    Updated: 2025/12/12 19:47:46 by thantoni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,6 @@ SRCS =	ft_isalpha.c							\
 		ft_putstr_fd.c							\
 		ft_putendl_fd.c							\
 		ft_putnbr_fd.c							\
-		ft_contains.c							\
-		ft_first.c								\
 		ft_lstnew.c								\
 		ft_lstadd_front.c						\
 		ft_lstsize.c							\
@@ -60,16 +58,18 @@ SRCS =	ft_isalpha.c							\
 		ft_lstclear.c							\
 		ft_lstiter.c							\
 		ft_lstmap.c								\
-		ft_arraytostr.c							\
-		ft_freesplit.c							\
-		ft_strjoin3.c							\
-		ft_first.c								\
-		ft_contains.c							\
+		extras/ft_arraytostr.c					\
+		extras/ft_freesplit.c					\
+		extras/ft_strjoin3.c					\
+		extras/ft_first.c						\
+		extras/ft_contains.c					\
+		extras/ft_contains_v.c					\
+		extras/ft_contains_at.c					\
+		extras/ft_startwith.c					\
 		extras/cfirst.c							\
 		extras/clast.c							\
 		extras/is_cfirst.c						\
 		extras/is_clast.c						\
-		extras/ft_contains_v.c					\
 		extras/is_clast.c						\
 		ter/ter_c.c								\
 		ter/ter_i.c								\

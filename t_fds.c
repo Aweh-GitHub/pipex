@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 17:44:29 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/08 11:03:14 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/13 16:01:25 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_fds	*t_fds__new(int fd_in, int fd_out)
 	t_fds	*fds;
 
 	fds = malloc(sizeof(t_fds));
+	if (fds == NULL)
+		return (NULL);
 	fds->fds[0] = fd_in;
 	fds->fds[1] = fd_out;
 	return (fds);

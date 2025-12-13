@@ -6,7 +6,7 @@
 #    By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/08 11:14:14 by thantoni          #+#    #+#              #
-#    Updated: 2025/12/11 10:17:46 by thantoni         ###   ########.fr        #
+#    Updated: 2025/12/13 16:12:09 by thantoni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS =	pipex_main.c	\
+		utils_fd.c		\
 		t_cmd.c			\
 		t_fds.c			
 

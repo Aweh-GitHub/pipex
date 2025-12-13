@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freesplit.c                                     :+:      :+:    :+:   */
+/*   utils_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/07 17:32:08 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/12 10:01:55 by thantoni         ###   ########.fr       */
+/*   Created: 2025/12/13 16:08:35 by thantoni          #+#    #+#             */
+/*   Updated: 2025/12/13 16:32:06 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <unistd.h>
 
-void	ft_freesplit(char **split)
+void	close_all_fd(int fd_f[2], int fd_p[2], int fd_cmd[2])
 {
-	size_t	i;
-
-	if (split == NULL)
-		return ;
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
+	close(fd_f[0]);
+	close (fd_f[1]);
+	close(fd_p[0]);
+	close(fd_p[1]);
+	close(fd_cmd[0]);
+	close(fd_cmd[1]);
 }

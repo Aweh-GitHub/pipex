@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:39:24 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/15 16:27:11 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/15 16:38:08 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ static void	init_fdfiles(int *fd_files, int is_heredoc, int argc, char **argv)
 		fd_files[FD_IN] = handle_here_doc(argv[ARG_INDEX_HEREDOC_EOF]);
 	else
 		fd_files[FD_IN] = open(argv[ARG_INDEX_FILEIN], O_RDONLY);
-	if (fd_files[FD_IN] == -1)
-		return (perror(argv[1]), exit(EXIT_FAILURE), (void)init_fdfiles);
 	if (is_heredoc)
 		fd_files[FD_OUT] = open(fileout, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else
@@ -109,8 +107,8 @@ int	main(int argc, char **argv, char **envp)
 	int		i;
 
 	is_heredoc = ft_contains(argv[ARG_INDEX_HEREDOC], HEREDOC);
-	verify_args(is_heredoc, argc);
 	init_fdfiles(fd_f, is_heredoc, argc, argv);
+	verify_args(is_heredoc, argc);
 	fd_cmd[FD_IN] = fd_f[FD_IN];
 	i = ARG_INDEX_FIRST_CMD + ter_lu(is_heredoc, ARG_INDEX_HEREDOC_OFFSET, 0);
 	while (i < argc - 1)

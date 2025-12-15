@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:39:24 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/15 17:14:41 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/15 17:18:48 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <sys/wait.h>
 
 static int	exec_cmd(t_cmd *cmd)
 {
@@ -98,8 +99,6 @@ void	verify_args(int is_heredoc, int argc)
 	}
 }
 
-#include <sys/wait.h>
-
 int	main(int argc, char **argv, char **envp)
 {
 	int		fd_f[2];
@@ -124,6 +123,6 @@ int	main(int argc, char **argv, char **envp)
 		i++;
 	}
 	close_all_fd(fd_f, fd_p, fd_cmd);
-	wait_pid(-1, NULL, 0);
+	waitpid(-1, NULL, 0);
 	return (EXIT_SUCCESS);
 }

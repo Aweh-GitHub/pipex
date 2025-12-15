@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 17:26:11 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/13 16:16:29 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/15 16:28:01 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ char	*get_name(char *argv_cmd)
 	size_t	i;
 
 	split = ft_split(argv_cmd, ' ');
-	name = ft_strdup(split[0]);
+	if (split == NULL)
+		return (NULL);
+	name = ft_strjoin("", split[0]);
+	if (name == NULL)
+		return (ft_freesplit(split), NULL);
 	i = 0;
 	while (split[i])
 	{
@@ -75,11 +79,7 @@ t_cmd	*t_cmd__new(char *argv_cmd, char **envp, int fdinout[2])
 	cmd->envp = envp;
 	cmd->name = get_name(argv_cmd);
 	cmd->path = get_path(cmd->name, cmd->envp);
-	if (cmd->path == NULL)
-		return (t_cmd__free(cmd), NULL);
 	cmd->args = ft_split(argv_cmd, ' ');
-	if (cmd->args == NULL)
-		return (t_cmd__free(cmd), NULL);
 	return (cmd);
 }
 

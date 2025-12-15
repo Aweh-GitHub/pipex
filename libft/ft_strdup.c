@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:53:32 by thantoni          #+#    #+#             */
-/*   Updated: 2025/11/10 14:55:29 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/15 16:04:58 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strdup(const char *s)
 	char	*dup;
 	size_t	len;
 
+	if (s == NULL)
+		return (NULL);
 	len = 0;
 	while (s[len])
 		len++;

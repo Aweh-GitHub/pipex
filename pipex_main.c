@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:39:24 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/15 15:49:38 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/15 16:27:11 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	exec_cmd(t_cmd *cmd)
 	close(cmd->fds->fds[STDOUT_FILENO]);
 	execve(cmd->path, cmd->args, cmd->envp);
 	ft_putstr_fd(cmd->name, STDERR_FILENO);
-	if (cmd->name[0] == '/')
+	if (cmd->name && cmd->name[0] == '/')
 		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 	else
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
@@ -118,8 +118,7 @@ int	main(int argc, char **argv, char **envp)
 		if (pipe(fd_p) == -1)
 			return (perror("pipe"), exit(EXIT_FAILURE), EXIT_FAILURE);
 		fd_cmd[FD_OUT] = ter_i(i == argc - 2, fd_f[FD_OUT], fd_p[1]);
-		if (exec_cmd(t_cmd__new(argv[i], envp, fd_cmd)) == ERROR)
-			return (close_all_fd(fd_f, fd_p, fd_cmd), EXIT_FAILURE);
+		exec_cmd(t_cmd__new(argv[i], envp, fd_cmd));
 		close(fd_p[1]);
 		fd_cmd[FD_IN] = fd_p[0];
 		i++;

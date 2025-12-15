@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 09:32:54 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/13 16:31:57 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/15 15:48:11 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_cmd
 }	t_cmd;
 
 void	close_all_fd(int fd_f[2], int fd_p[2], int fd_cmd[2]);
+void	close_fds(int fds[2]);
 
 t_cmd	*t_cmd__new(char *argv_cmd, char **envp, int fdinout[2]);
 void	t_cmd__free(t_cmd *cmd);

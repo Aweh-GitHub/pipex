@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:39:24 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/13 17:23:08 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/15 15:49:38 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	exec_cmd(t_cmd *cmd)
 		return (ERROR);
 	pid = fork();
 	if (pid > 0)
-		return (t_cmd__free(cmd), TRUE);
+		return (close_fds(cmd->fds->fds), t_cmd__free(cmd), TRUE);
 	if (pid < 0)
 		return (t_cmd__free(cmd), perror("fork"), exit(EXIT_FAILURE), ERROR);
 	if (dup2(cmd->fds->fds[STDIN_FILENO], STDIN_FILENO) == DUP2_ERROR)

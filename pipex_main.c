@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:39:24 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/15 17:18:48 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/02 18:16:04 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <sys/wait.h>
+
+void	print_error(t_cmd *cmd)
+{
+	ft_putstr_fd(cmd->name, STDERR_FILENO);
+	if (cmd->name && cmd->name[0] == '/')
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+	else
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+}
 
 static int	exec_cmd(t_cmd *cmd)
 {
@@ -29,20 +38,19 @@ static int	exec_cmd(t_cmd *cmd)
 		return (close_fds(cmd->fds->fds), t_cmd__free(cmd), TRUE);
 	if (pid < 0)
 		return (t_cmd__free(cmd), perror("fork"), exit(EXIT_FAILURE), ERROR);
-	if (dup2(cmd->fds->fds[STDIN_FILENO], STDIN_FILENO) == DUP2_ERROR)
+	if (cmd->fds->fds[STDIN_FILENO] == -1)
+	{
+		if (cmd->fds->fds[STDOUT_FILENO] != -1)
+			close(cmd->fds->fds[STDOUT_FILENO]);
+		exit(EXIT_FAILURE);
+	}
+	if (dup2(cmd->fds->fds[STDIN_FILENO], STDIN_FILENO) == DUP2_ERROR ||
+		dup2(cmd->fds->fds[STDOUT_FILENO], STDOUT_FILENO) == DUP2_ERROR)
 		return (perror("dup2"), exit(EXIT_FAILURE), ERROR);
-	if (dup2(cmd->fds->fds[STDOUT_FILENO], STDOUT_FILENO) == DUP2_ERROR)
-		return (perror("dup2"), exit(EXIT_FAILURE), ERROR);
-	close(cmd->fds->fds[STDIN_FILENO]);
-	close(cmd->fds->fds[STDOUT_FILENO]);
+	close_fds(cmd->fds->fds);
 	execve(cmd->path, cmd->args, cmd->envp);
-	ft_putstr_fd(cmd->name, STDERR_FILENO);
-	if (cmd->name && cmd->name[0] == '/')
-		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-	else
-		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-	exit(EXIT_FAILURE);
-	return (ERROR);
+	print_error(cmd);
+	return (exit(EXIT_FAILURE), ERROR);
 }
 
 static int	handle_here_doc(const char *eof)
@@ -78,7 +86,11 @@ static void	init_fdfiles(int *fd_files, int is_heredoc, int argc, char **argv)
 	if (is_heredoc)
 		fd_files[FD_IN] = handle_here_doc(argv[ARG_INDEX_HEREDOC_EOF]);
 	else
+	{
 		fd_files[FD_IN] = open(argv[ARG_INDEX_FILEIN], O_RDONLY);
+		if (fd_files[FD_IN] == -1)
+			perror(argv[ARG_INDEX_FILEIN]);
+	}
 	if (is_heredoc)
 		fd_files[FD_OUT] = open(fileout, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else
@@ -123,6 +135,7 @@ int	main(int argc, char **argv, char **envp)
 		i++;
 	}
 	close_all_fd(fd_f, fd_p, fd_cmd);
-	waitpid(-1, NULL, 0);
+	while (wait(NULL) > 0)
+		;
 	return (EXIT_SUCCESS);
 }

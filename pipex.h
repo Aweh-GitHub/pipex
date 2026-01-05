@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 09:32:54 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/05 08:55:37 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/05 15:40:43 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ typedef struct s_cmd
 }	t_cmd;
 
 int				exec_cmd(t_cmd cmd);
-void			loop_to_exec_cmds(t_program_info info, int fd_f[2], int fd_p[2]);
+void			loop_to_exec_cmds(t_program_info info \
+	, int fd_f[2], int fd_p[2]);
 void			close_all_fd(int fd_f[2], int fd_p[2], int fd_cmd[2]);
 void			close_fds(int fds[2]);
 

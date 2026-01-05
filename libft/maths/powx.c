@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 13:26:34 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/20 13:37:20 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/05 15:42:51 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ double	powx(double value, int x)
 			result /= value;
 	return (result);
 }
-
 
 double	pow2(double value)
 {

@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 16:10:39 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/05 08:55:10 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/05 15:41:20 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	exec_cmd(t_cmd cmd)
 			close(cmd.fds[STDOUT_FILENO]);
 		exit(EXIT_FAILURE);
 	}
-	if (dup2(cmd.fds[STDIN_FILENO], STDIN_FILENO) == DUP2_ERROR ||
-		dup2(cmd.fds[STDOUT_FILENO], STDOUT_FILENO) == DUP2_ERROR)
+	if (dup2(cmd.fds[STDIN_FILENO], STDIN_FILENO) == DUP2_ERROR
+		|| dup2(cmd.fds[STDOUT_FILENO], STDOUT_FILENO) == DUP2_ERROR)
 		return (perror("dup2"), exit(EXIT_FAILURE), ERROR);
 	close_fds(cmd.fds);
 	execve(cmd.m_path, cmd.m_args_split, cmd.info.envp);

@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 16:10:46 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/05 15:41:39 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/05 15:51:11 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	_handle_here_doc(const char *eof)
 	return (fd_p[0]);
 }
 
-static void	_init_fdfiles(int *fd_files, int is_heredoc, int argc, char **argv)
+static int	_init_fdfiles(int *fd_files, int is_heredoc, int argc, char **argv)
 {
 	char	*fileout;
 
@@ -59,7 +59,8 @@ static void	_init_fdfiles(int *fd_files, int is_heredoc, int argc, char **argv)
 	else
 		fd_files[FD_OUT] = open(fileout, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_files[FD_OUT] == -1)
-		perror(fileout);
+		return (perror(fileout), FALSE);
+	return (TRUE);
 }
 
 static void	_verify_args(int is_heredoc, int argc)
@@ -76,7 +77,7 @@ static void	_verify_args(int is_heredoc, int argc)
 	}
 }
 
-void	loop_to_exec_cmds(t_program_info info, int fd_f[2], int fd_p[2])
+int	loop_to_exec_cmds(t_program_info info, int fd_f[2], int fd_p[2])
 {
 	int		is_heredoc;
 	int		fd_cmd[2];
@@ -84,13 +85,14 @@ void	loop_to_exec_cmds(t_program_info info, int fd_f[2], int fd_p[2])
 
 	is_heredoc = ft_strcmp(info.argv[ARG_INDEX_HEREDOC], HEREDOC) == 0;
 	_verify_args(is_heredoc, info.argc);
-	_init_fdfiles(fd_f, is_heredoc, info.argc, info.argv);
+	if (_init_fdfiles(fd_f, is_heredoc, info.argc, info.argv) == FALSE)
+		return (EXIT_FAILURE);
 	fd_cmd[FD_IN] = fd_f[FD_IN];
 	i = ARG_INDEX_FIRST_CMD + ter_lu(is_heredoc, ARG_INDEX_HEREDOC_OFFSET, 0);
 	while (i < info.argc - 1)
 	{
 		if (pipe(fd_p) == -1)
-			return (perror("pipe"), exit(EXIT_FAILURE), (void) 0);
+			return (perror("pipe"), EXIT_FAILURE);
 		fd_cmd[FD_OUT] = ter_i(i == info.argc - 2, fd_f[FD_OUT], fd_p[1]);
 		exec_cmd(t_cmd__new(info.argv[i], info, fd_cmd));
 		close(fd_p[1]);
@@ -101,4 +103,5 @@ void	loop_to_exec_cmds(t_program_info info, int fd_f[2], int fd_p[2])
 	}
 	if (fd_cmd[FD_IN] != fd_f[FD_IN])
 		close(fd_cmd[FD_IN]);
+	return (EXIT_SUCCESS);
 }

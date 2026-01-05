@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   t_list__extract.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/05 10:48:05 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/15 10:16:10 by thantoni         ###   ########.fr       */
+/*   Created: 2025/12/21 16:17:29 by thantoni          #+#    #+#             */
+/*   Updated: 2025/12/21 16:26:35 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*t_list__extract(t_list **lst, void *ptr)
 {
-	t_list	*new_list;
-	t_list	*new_node;
-	void	*new_content;
+	t_list	*node;
+	t_list	*prev;
 
-	if (!lst || !f || !del)
+	if (!lst || !*lst)
 		return (NULL);
-	new_list = NULL;
-	while (lst)
+	node = *lst;
+	prev = NULL;
+	while (node != NULL)
 	{
-		new_content = f(lst->value);
-		new_node = ft_lstnew(new_content);
-		if (!new_node)
+		if (node->value == ptr)
 		{
-			del(new_content);
-			ft_lstclear(&new_list, del);
-			return (NULL);
+			if (prev != NULL)
+				return (prev->next = node->next, node);
+			else
+				return (*lst = node->next, node);
 		}
-		ft_lstadd_back(&new_list, new_node);
-		lst = lst->next;
+		prev = node;
+		node = node->next;
 	}
-	return (new_list);
+	return (NULL);
 }

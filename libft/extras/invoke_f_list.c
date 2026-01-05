@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   invoke_f_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/05 10:46:29 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/15 10:16:10 by thantoni         ###   ########.fr       */
+/*   Created: 2025/12/30 12:01:59 by thantoni          #+#    #+#             */
+/*   Updated: 2025/12/30 12:02:31 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+void	invoke_f_list(t_list *f_list, void *value)
 {
-	if (!f)
-		return ;
-	while (lst)
+	void	(*f)(void *);
+	
+	while (f_list)
 	{
-		f(lst->value);
-		lst = lst->next;
+		f = (void (*)(void *))f_list->value;
+		if (f == NULL)
+			continue ;
+		f(value);
+		f_list = f_list->next;
 	}
 }

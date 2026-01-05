@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   sqrt.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/05 10:46:29 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/15 10:16:10 by thantoni         ###   ########.fr       */
+/*   Created: 2025/12/20 13:32:24 by thantoni          #+#    #+#             */
+/*   Updated: 2025/12/20 13:33:30 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+double	sqrt(double value)
 {
-	if (!f)
-		return ;
-	while (lst)
+	double	result;
+	double	tmp;
+
+	if (value < 0)
+		return (0);
+	if (value == 0 || value == 1)
+		return (value);
+	result = value / 2;
+	tmp = 0;
+	while (result != tmp)
 	{
-		f(lst->value);
-		lst = lst->next;
+		tmp = result;
+		result = ((value / tmp) + tmp) / 2;
 	}
+	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 17:26:11 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/15 16:28:01 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/03 17:00:16 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static char	*get_path(char *name, char **envp)
+static char	*_get_path(char *name, char **envp)
 {
 	char	**paths;
 	char	*result_path;
@@ -66,34 +66,37 @@ char	*get_name(char *argv_cmd)
 	return (name);
 }
 
-t_cmd	*t_cmd__new(char *argv_cmd, char **envp, int fdinout[2])
+t_cmd	t_cmd__new(char *argv_cmd, t_program_info info, int fdinout[2])
 {
-	t_cmd	*cmd;
+	t_cmd	cmd;
 
-	cmd = malloc(sizeof(t_cmd));
-	if (cmd == NULL)
-		return (NULL);
-	cmd->fds = t_fds__new(fdinout[FD_IN], fdinout[FD_OUT]);
-	if (cmd->fds == NULL)
-		return (t_cmd__free(cmd), NULL);
-	cmd->envp = envp;
-	cmd->name = get_name(argv_cmd);
-	cmd->path = get_path(cmd->name, cmd->envp);
-	cmd->args = ft_split(argv_cmd, ' ');
+	cmd.fds[0] = fdinout[FD_IN];
+	cmd.fds[1] = fdinout[FD_OUT];
+	cmd.info = info;
+	cmd.m_name = get_name(argv_cmd);
+	cmd.m_path = _get_path(cmd.m_name, cmd.info.envp);
+	cmd.m_args_split = ft_split(argv_cmd, ' ');
 	return (cmd);
 }
 
-void	t_cmd__free(t_cmd	*cmd)
+void	t_cmd__free(t_cmd cmd)
 {
-	if (cmd == NULL)
-		return ;
-	if (cmd->fds)
-		t_fds__free(cmd->fds);
-	if (cmd->args)
-		ft_freesplit(cmd->args);
-	if (cmd->name)
-		free(cmd->name);
-	if (cmd->path)
-		free(cmd->path);
-	free(cmd);
+	ft_freesplit(cmd.m_args_split);
+	ft_free((void **)&cmd.m_name);
+	ft_free((void **)&cmd.m_path);
 }
+
+// void	t_cmd__free(t_cmd	*cmd)
+// {
+// 	if (cmd == NULL)
+// 		return ;
+// 	if (cmd->fds)
+// 		t_fds__free(cmd->fds);
+// 	if (cmd->args)
+// 		ft_freesplit(cmd->args);
+// 	if (cmd->name)
+// 		free(cmd->name);
+// 	if (cmd->path)
+// 		free(cmd->path);
+// 	free(cmd);
+// }

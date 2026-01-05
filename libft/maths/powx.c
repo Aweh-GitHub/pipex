@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   powx.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/05 10:46:29 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/15 10:16:10 by thantoni         ###   ########.fr       */
+/*   Created: 2025/12/20 13:26:34 by thantoni          #+#    #+#             */
+/*   Updated: 2025/12/20 13:37:20 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+double	powx(double value, int x)
 {
-	if (!f)
-		return ;
-	while (lst)
-	{
-		f(lst->value);
-		lst = lst->next;
-	}
+	double	result;
+
+	result = 1.0;
+	if (x > 0)
+		while (x-- > 0)
+			result *= value;
+	else if (x < 0)
+		while (x++ < 0)
+			result /= value;
+	return (result);
+}
+
+
+double	pow2(double value)
+{
+	return (powx(value, 2));
+}
+
+double	pow3(double value)
+{
+	return (powx(value, 3));
 }

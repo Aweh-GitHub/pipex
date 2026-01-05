@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:13:16 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/13 17:21:53 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/03 17:02:35 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define LIBFT_H
 
 # include <stddef.h>
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
 
 # define GNL_WIPE -4242
 # define ERROR -1
@@ -22,7 +24,7 @@
 
 typedef struct s_list
 {
-	void			*content;
+	void			*value;
 	struct s_list	*next;
 }	t_list;
 
@@ -43,6 +45,7 @@ int				ft_tolower(int c);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
+int				ft_strcmp(const char *s1, const char *s2);
 void			*ft_memchr(const void *s, int c, size_t n);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 char			*ft_strnstr(const char *haystack, \
@@ -89,11 +92,30 @@ char			cfirst(char *str);
 char			clast(char *str);
 char			is_cfirst(char *str, char cmp);
 char			is_clast(char *str, char cmp);
+int				ft_free(void **ptr);
+int				ft_clamp(int val, int min, int max);
+double			ft_clampf(double val, double min, double max);
 char			ter_c(int con, char val_true, char val_false);
 int				ter_i(int con, int val_true, int val_false);
 long unsigned	ter_lu(int con, \
 	long unsigned val_true, long unsigned val_false);
 void			*ter_p(int con, void *val_true, void *val_false);
 char			*ter_s(int con, char *val_true, char *val_false);
+double			ter_f(int con, double val_true, double val_false);
+void			invoke_f_list(t_list *f_list, void *value);
+
+double			powx(double value, int pow);
+double			pow2(double value);
+double			pow3(double value);
+double			sqrt(double value);
+double			lerp(double origin, double target, double progress);
+double			abs_f(double value);
+
+t_list			*t_list__new(void *value);
+void			t_list__add0(t_list **lst, t_list *new);
+void			t_list__add1(t_list **lst, void *value);
+t_list			*t_list__extract(t_list **lst, void *ptr);
+char			t_list__c(t_list *list);
+char			*t_list__s(t_list *list);
 
 #endif

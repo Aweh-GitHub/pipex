@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 10:42:52 by thantoni          #+#    #+#             */
-/*   Updated: 2025/11/10 11:30:37 by thantoni         ###   ########.fr       */
+/*   Updated: 2025/12/15 10:16:10 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
 	if (!lst || !del)
 		return ;
-	del(lst->content);
+	del(lst->value);
 	free(lst);
 }

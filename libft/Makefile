@@ -6,7 +6,7 @@
 #    By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/03 18:59:12 by thantoni          #+#    #+#              #
-#    Updated: 2025/12/12 19:47:46 by thantoni         ###   ########.fr        #
+#    Updated: 2026/01/03 17:02:45 by thantoni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS =	ft_isalpha.c							\
 		ft_strchr.c								\
 		ft_strrchr.c							\
 		ft_strncmp.c							\
+		ft_strcmp.c								\
 		ft_memchr.c								\
 		ft_memcmp.c								\
 		ft_strnstr.c							\
@@ -71,11 +72,19 @@ SRCS =	ft_isalpha.c							\
 		extras/is_cfirst.c						\
 		extras/is_clast.c						\
 		extras/is_clast.c						\
+		extras/ft_free.c						\
+		extras/ft_clamp.c						\
+		extras/invoke_f_list.c					\
+		maths/powx.c							\
+		maths/sqrt.c							\
+		maths/lerp.c							\
+		maths/abs_f.c							\
 		ter/ter_c.c								\
 		ter/ter_i.c								\
 		ter/ter_lu.c							\
 		ter/ter_p.c								\
 		ter/ter_s.c								\
+		ter/ter_f.c								\
 		get_next_line/get_next_line.c			\
 		get_next_line/get_next_line_utils.c		\
 		ft_printf/ft_printf.c					\
@@ -88,7 +97,11 @@ SRCS =	ft_isalpha.c							\
 		ft_printf/handlers/ft_printudec.c		\
 		ft_printf/handlers/ft_printhexlow.c		\
 		ft_printf/handlers/ft_printhexupr.c		\
-		ft_printf/handlers/ft_printpercent.c
+		ft_printf/handlers/ft_printpercent.c	\
+		list/t_list__new.c						\
+		list/t_list__add.c						\
+		list/t_list__extract.c					\
+		list/t_list__s.c						\
 
 OBJS = $(SRCS:.c=.o)
 

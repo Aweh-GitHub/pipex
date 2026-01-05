@@ -6,7 +6,7 @@
 #    By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/08 11:14:14 by thantoni          #+#    #+#              #
-#    Updated: 2025/12/13 16:12:09 by thantoni         ###   ########.fr        #
+#    Updated: 2026/01/03 16:29:08 by thantoni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,12 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS =	pipex_main.c	\
-		utils_fd.c		\
-		t_cmd.c			\
+SRCS =	pipex_1.c					\
+		pipex_2.c					\
+		pipex_main.c				\
+		utils_fd.c					\
+		t_program_args_info.c		\
+		t_cmd.c						\
 		t_fds.c			
 
 OBJS = $(SRCS:.c=.o)

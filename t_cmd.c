@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 17:26:11 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/03 17:00:16 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/06 16:27:03 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*_get_path(char *name, char **envp)
 	return (NULL);
 }
 
-char	*get_name(char *argv_cmd)
+static char	*_get_name(char *argv_cmd)
 {
 	char	**split;
 	char	*name;
@@ -73,7 +73,7 @@ t_cmd	t_cmd__new(char *argv_cmd, t_program_info info, int fdinout[2])
 	cmd.fds[0] = fdinout[FD_IN];
 	cmd.fds[1] = fdinout[FD_OUT];
 	cmd.info = info;
-	cmd.m_name = get_name(argv_cmd);
+	cmd.m_name = _get_name(argv_cmd);
 	cmd.m_path = _get_path(cmd.m_name, cmd.info.envp);
 	cmd.m_args_split = ft_split(argv_cmd, ' ');
 	return (cmd);
@@ -85,18 +85,3 @@ void	t_cmd__free(t_cmd cmd)
 	ft_free((void **)&cmd.m_name);
 	ft_free((void **)&cmd.m_path);
 }
-
-// void	t_cmd__free(t_cmd	*cmd)
-// {
-// 	if (cmd == NULL)
-// 		return ;
-// 	if (cmd->fds)
-// 		t_fds__free(cmd->fds);
-// 	if (cmd->args)
-// 		ft_freesplit(cmd->args);
-// 	if (cmd->name)
-// 		free(cmd->name);
-// 	if (cmd->path)
-// 		free(cmd->path);
-// 	free(cmd);
-// }

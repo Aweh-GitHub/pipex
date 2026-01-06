@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 09:32:54 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/06 10:34:41 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/06 17:50:02 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 
 # define DUP2_ERROR -1
 
+# define EXIT_CMD_NOTFOUND 127
+
 # include <stddef.h>
 # include <sys/types.h>
 
@@ -59,8 +61,7 @@ typedef struct s_cmd
 
 pid_t			exec_cmd(t_cmd cmd);
 int				handle_here_doc(const char *eof);
-pid_t			loop_to_exec_cmds(t_program_info info \
-	, int fd_f[2], int fd_p[2]);
+pid_t			loop_to_exec_cmds(t_program_info info, int is_here_doc, int fd_f[2], int fd_p[2]);
 void			close_all_fd(int fd_f[2], int fd_p[2], int fd_cmd[2]);
 void			close_fds(int fds[2]);
 

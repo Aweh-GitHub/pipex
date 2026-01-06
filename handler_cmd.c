@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 16:10:39 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/06 10:35:05 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/06 17:50:00 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ pid_t	exec_cmd(t_cmd cmd)
 	if (pid > 0)
 		return (t_cmd__free(cmd), pid);
 	if (pid < 0)
-		return (t_cmd__free(cmd), perror("fork"), exit(EXIT_FAILURE), -1);
+		return (t_cmd__free(cmd), perror("fork"), exit(EXIT_FAILURE), ERROR);
 	if (cmd.fds[STDIN_FILENO] == -1)
 	{
 		if (cmd.fds[STDOUT_FILENO] != -1)
@@ -47,8 +47,9 @@ pid_t	exec_cmd(t_cmd cmd)
 		|| dup2(cmd.fds[STDOUT_FILENO], STDOUT_FILENO) == DUP2_ERROR)
 		return (t_cmd__free(cmd), exit(EXIT_FAILURE), ERROR);
 	close_fds(cmd.fds);
-	execve(cmd.m_path, cmd.m_args_split, cmd.info.envp);
+	if (cmd.m_path != NULL)
+		execve(cmd.m_path, cmd.m_args_split, cmd.info.envp);
 	_print_error(cmd);
 	t_cmd__free(cmd);
-	return (exit(EXIT_FAILURE), ERROR);
+	return (exit(EXIT_CMD_NOTFOUND), ERROR);
 }

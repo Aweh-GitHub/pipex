@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:39:24 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/05 15:49:26 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/06 10:26:40 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,23 @@
 #include <stdio.h>
 #include <sys/wait.h>
 
+static int	_wait_exit_code(pid_t last_pid)
+{
+	pid_t	pid;
+	int		state;
+	int		exit_code;
+
+	if (last_pid == -1)
+		return (EXIT_FAILURE);
+	exit_code = 0;
+	while ((pid = wait(&state)) > 0)
+	{
+		if (pid == last_pid && WIFEXITED(state))
+			exit_code = WEXITSTATUS(state);
+	}
+	return (exit_code);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_program_info	info;
@@ -28,9 +45,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc <= 4)
 		return (ft_printf(ERR_ARGS_DEFAULT), EXIT_FAILURE);
 	info = t_program_args_info__new(argc, argv, envp);
-	exit_code = loop_to_exec_cmds(info, fd_f, fd_p);
+	exit_code = _wait_exit_code(loop_to_exec_cmds(info, fd_f, fd_p));
 	close_fds(fd_f);
-	while (wait(NULL) > 0)
-		;
 	return (exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 16:10:46 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/06 17:54:05 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/07 10:38:18 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,14 @@
 #include <stdio.h>
 #include <sys/wait.h>
 
-pid_t	loop_to_exec_cmds(t_program_info info, int is_here_doc, int fd_f[2], int fd_p[2])
+pid_t	handler_loop(t_program_info info, int is_hdoc, int fd_f[2], int fd_p[2])
 {
 	int		fd_cmd[2];
 	int		i;
 	pid_t	last_pid;
 
-
 	fd_cmd[FD_IN] = fd_f[FD_IN];
-	i = ARG_INDEX_FIRST_CMD;
-	if (is_here_doc)
-		i += ARG_INDEX_HEREDOC_OFFSET;
+	i = ARG_INDEX_FIRST_CMD + i(is_hdoc, ARG_INDEX_HEREDOC_OFFSET, 0);
 	while (i < info.argc - 1)
 	{
 		if (pipe(fd_p) == -1)

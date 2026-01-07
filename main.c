@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:39:24 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/06 17:41:27 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/07 10:33:04 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static int	_wait_exit_code(pid_t last_pid)
 	if (last_pid == -1)
 		return (EXIT_FAILURE);
 	exit_code = 0;
-	while ((pid = wait(&state)) > 0)
+	pid = wait(&state);
+	while (pid > 0)
 	{
 		if (pid == last_pid && WIFEXITED(state))
 			exit_code = WEXITSTATUS(state);

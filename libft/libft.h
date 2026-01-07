@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:13:16 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/03 17:02:35 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/07 10:38:38 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,13 @@ char			is_clast(char *str, char cmp);
 int				ft_free(void **ptr);
 int				ft_clamp(int val, int min, int max);
 double			ft_clampf(double val, double min, double max);
-char			ter_c(int con, char val_true, char val_false);
-int				ter_i(int con, int val_true, int val_false);
-long unsigned	ter_lu(int con, \
+char			c(int con, char val_true, char val_false);
+int				i(int con, int val_true, int val_false);
+long unsigned	lu(int con, \
 	long unsigned val_true, long unsigned val_false);
-void			*ter_p(int con, void *val_true, void *val_false);
-char			*ter_s(int con, char *val_true, char *val_false);
-double			ter_f(int con, double val_true, double val_false);
+void			*p(int con, void *val_true, void *val_false);
+char			*s(int con, char *val_true, char *val_false);
+double			f(int con, double val_true, double val_false);
 void			invoke_f_list(t_list *f_list, void *value);
 
 double			powx(double value, int pow);

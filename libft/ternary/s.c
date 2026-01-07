@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ter_lu.c                                           :+:      :+:    :+:   */
+/*   s.c                                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 16:16:17 by thantoni          #+#    #+#             */
-/*   Updated: 2025/12/09 16:30:53 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/07 10:39:03 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-long unsigned	ter_lu(int con, long unsigned val_true, long unsigned val_false)
+char	*s(int con, char *val_true, char *val_false)
 {
 	if (con)
 		return (val_true);

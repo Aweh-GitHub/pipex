@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 17:26:11 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/07 10:34:04 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/10 12:44:57 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ static char	*_get_path(char *name, char **envp)
 	char	*result_path;
 	size_t	path_i;
 
-	if (name && name[0] == '/')
+	if (name && ft_strchr(name, '/'))
 		return (ft_strdup(name));
-	paths = ft_split(ft_first((void **)envp, "PATH=", (int (*)(const void *, const void *))ft_startwith), ':');
+	paths = ft_split(ft_first((void **)envp, "PATH=", \
+		(int (*)(const void *, const void *))ft_startwith), ':');
 	if (paths == NULL)
 		return (NULL);
 	path_i = 0;
@@ -65,7 +66,7 @@ static char	*_get_name(char *argv_cmd)
 	return (name);
 }
 
-t_cmd	t_cmd__new(char *argv_cmd, t_program_info info, int fdinout[2])
+t_cmd	t_cmd__new(char *argv_cmd, t_program_info *info, int fdinout[2])
 {
 	t_cmd	cmd;
 
@@ -73,7 +74,7 @@ t_cmd	t_cmd__new(char *argv_cmd, t_program_info info, int fdinout[2])
 	cmd.fds[1] = fdinout[FD_OUT];
 	cmd.info = info;
 	cmd.m_name = _get_name(argv_cmd);
-	cmd.m_path = _get_path(cmd.m_name, cmd.info.envp);
+	cmd.m_path = _get_path(cmd.m_name, cmd.info->envp);
 	cmd.m_args_split = ft_split(argv_cmd, ' ');
 	return (cmd);
 }

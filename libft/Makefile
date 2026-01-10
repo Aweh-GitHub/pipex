@@ -6,7 +6,7 @@
 #    By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/03 18:59:12 by thantoni          #+#    #+#              #
-#    Updated: 2026/01/07 10:39:44 by thantoni         ###   ########.fr        #
+#    Updated: 2026/01/09 14:35:03 by thantoni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,12 +79,12 @@ SRCS =	ft_isalpha.c							\
 		maths/sqrt.c							\
 		maths/lerp.c							\
 		maths/abs_f.c							\
-		ternary/c.c								\
-		ternary/i.c								\
-		ternary/lu.c							\
-		ternary/p.c								\
-		ternary/s.c								\
-		ternary/f.c								\
+		ternary/tc.c								\
+		ternary/ti.c								\
+		ternary/tlu.c							\
+		ternary/tp.c								\
+		ternary/ts.c								\
+		ternary/tf.c								\
 		get_next_line/get_next_line.c			\
 		get_next_line/get_next_line_utils.c		\
 		ft_printf/ft_printf.c					\

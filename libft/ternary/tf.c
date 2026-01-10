@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s.c                                                :+:      :+:    :+:   */
+/*   f.c                                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/09 16:16:17 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/07 10:39:03 by thantoni         ###   ########.fr       */
+/*   Created: 2025/12/27 17:34:28 by thantoni          #+#    #+#             */
+/*   Updated: 2026/01/09 14:33:45 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
-
-char	*s(int con, char *val_true, char *val_false)
+double	tf(int con, double val_true, double val_false)
 {
 	if (con)
 		return (val_true);

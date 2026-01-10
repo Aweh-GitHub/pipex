@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 16:10:39 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/06 17:50:00 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/10 15:59:53 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 static void	_print_error(t_cmd cmd)
 {
@@ -27,29 +28,43 @@ static void	_print_error(t_cmd cmd)
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 }
 
-pid_t	exec_cmd(t_cmd cmd)
+static void	_exec_child(t_cmd cmd)
+{
+	if (dup2(cmd.fds[STDIN_FILENO], STDIN_FILENO) == DUP2_ERROR
+		|| dup2(cmd.fds[STDOUT_FILENO], STDOUT_FILENO) == DUP2_ERROR)
+	{
+		close_fds(cmd.fds);
+		t_cmd__free(cmd);
+		exit(EXIT_FAILURE);
+	}
+	close_fds(cmd.fds);
+	if (cmd.m_path != NULL)
+	{
+		execve(cmd.m_path, cmd.m_args_split, cmd.info->envp);
+		perror(cmd.m_name);
+		t_cmd__free(cmd);
+		if (errno == EACCES || errno == EISDIR)
+			exit(126);
+		exit(127);
+	}
+	_print_error(cmd);
+	t_cmd__free(cmd);
+	exit(EXIT_CMD_NOTFOUND);
+}
+
+pid_t	handle_cmd(t_cmd cmd)
 {
 	pid_t	pid;
 
 	pid = fork();
-	if (pid > 0)
-		return (t_cmd__free(cmd), pid);
-	if (pid < 0)
-		return (t_cmd__free(cmd), perror("fork"), exit(EXIT_FAILURE), ERROR);
-	if (cmd.fds[STDIN_FILENO] == -1)
+	if (pid == -1)
 	{
-		if (cmd.fds[STDOUT_FILENO] != -1)
-			close(cmd.fds[STDOUT_FILENO]);
+		perror("fork");
 		t_cmd__free(cmd);
 		exit(EXIT_FAILURE);
 	}
-	if (dup2(cmd.fds[STDIN_FILENO], STDIN_FILENO) == DUP2_ERROR
-		|| dup2(cmd.fds[STDOUT_FILENO], STDOUT_FILENO) == DUP2_ERROR)
-		return (t_cmd__free(cmd), exit(EXIT_FAILURE), ERROR);
-	close_fds(cmd.fds);
-	if (cmd.m_path != NULL)
-		execve(cmd.m_path, cmd.m_args_split, cmd.info.envp);
-	_print_error(cmd);
+	if (pid == 0)
+		_exec_child(cmd);
 	t_cmd__free(cmd);
-	return (exit(EXIT_CMD_NOTFOUND), ERROR);
+	return (pid);
 }

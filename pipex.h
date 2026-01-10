@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 09:32:54 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/06 17:50:02 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/10 12:52:25 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,28 @@ typedef struct s_program_info
 	int		argc;
 	char	**argv;
 	char	**envp;
+	int		fd_f[2];
+	int		fd_p[2];
 }	t_program_info;
 
 typedef struct s_cmd
 {
-	struct s_program_info	info;
+	struct s_program_info	*info;
 	char					**m_args_split;
 	char					*m_name;
 	char					*m_path;
 	int						fds[2];
 }	t_cmd;
 
-pid_t			exec_cmd(t_cmd cmd);
+pid_t			handle_cmd(t_cmd cmd);
 int				handle_here_doc(const char *eof);
-pid_t			loop_to_exec_cmds(t_program_info info, int is_here_doc, int fd_f[2], int fd_p[2]);
+pid_t			handle_loop_to_exec_cmds(t_program_info *info, int is_here_doc);
+int				handle_fd_init_mode(t_program_info *info);
 void			close_all_fd(int fd_f[2], int fd_p[2], int fd_cmd[2]);
 void			close_fds(int fds[2]);
+pid_t			handler_loop(t_program_info *info, int is_here_doc);
 
-t_cmd			t_cmd__new(char *argv_cmd, t_program_info info, int fdinout[2]);
+t_cmd			t_cmd__new(char *argv_cmd, t_program_info *info, int inout[2]);
 void			t_cmd__free(t_cmd cmd);
 
 t_program_info	t_program_args_info__new(int argc, char **argv, char **envp);

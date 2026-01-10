@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i.c                                                :+:      :+:    :+:   */
+/*   c.c                                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 16:16:17 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/07 10:39:05 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/09 14:34:00 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	i(int con, int val_true, int val_false)
+char	tc(int con, char val_true, char val_false)
 {
 	if (con)
 		return (val_true);

@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:39:24 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/12 17:35:32 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/12 17:41:56 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <sys/wait.h>
-
 
 int	_wait_exit_code(pid_t last_pid)
 {

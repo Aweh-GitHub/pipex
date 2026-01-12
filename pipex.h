@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 09:32:54 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/10 12:52:25 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/12 17:35:32 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ pid_t			handle_loop_to_exec_cmds(t_program_info *info, int is_here_doc);
 int				handle_fd_init_mode(t_program_info *info);
 void			close_all_fd(int fd_f[2], int fd_p[2], int fd_cmd[2]);
 void			close_fds(int fds[2]);
-pid_t			handler_loop(t_program_info *info, int is_here_doc);
+pid_t			handle_loop(t_program_info *info, int is_here_doc);
 
 t_cmd			t_cmd__new(char *argv_cmd, t_program_info *info, int inout[2]);
 void			t_cmd__free(t_cmd cmd);

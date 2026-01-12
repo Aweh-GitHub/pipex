@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:39:24 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/10 12:58:30 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/12 17:35:32 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
 	fd_init_status = handle_fd_init_mode(&info);
 	if (fd_init_status == -1)
 		return (close_fds(info.fd_f), EXIT_FAILURE);
-	last_pid = handler_loop(&info, fd_init_status);
+	last_pid = handle_loop(&info, fd_init_status);
 	close_fds(info.fd_f);
 	exit_code = _wait_exit_code(last_pid);
 	return (exit_code);

@@ -6,7 +6,7 @@
 /*   By: thantoni <thantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 16:10:46 by thantoni          #+#    #+#             */
-/*   Updated: 2026/01/10 13:06:23 by thantoni         ###   ########.fr       */
+/*   Updated: 2026/01/12 17:37:52 by thantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,12 @@
 #include <stdio.h>
 #include <sys/wait.h>
 
-pid_t	handler_loop(t_program_info *info, int here_doc_mode)
+pid_t	_loop(t_program_info *info, int fd_cmd[2], int here_doc_mode)
 {
-	int		fd_cmd[2];
 	int		i;
 	pid_t	last_pid;
 
-	if (here_doc_mode == -1)
-		return (-1);
-	fd_cmd[FD_IN] = info->fd_f[FD_IN];
+	last_pid = -1;
 	i = ARG_INDEX_FIRST_CMD + ti(here_doc_mode, ARG_INDEX_HEREDOC_OFFSET, 0);
 	while (i < info->argc - 1)
 	{
@@ -43,6 +40,18 @@ pid_t	handler_loop(t_program_info *info, int here_doc_mode)
 		fd_cmd[FD_IN] = info->fd_p[0];
 		i++;
 	}
+	return (last_pid);
+}
+
+pid_t	handle_loop(t_program_info *info, int here_doc_mode)
+{
+	int		fd_cmd[2];
+	pid_t	last_pid;
+
+	if (here_doc_mode == -1)
+		return (-1);
+	fd_cmd[FD_IN] = info->fd_f[FD_IN];
+	last_pid = _loop(info, fd_cmd, here_doc_mode);
 	if (fd_cmd[FD_IN] != info->fd_f[FD_IN])
 		close(fd_cmd[FD_IN]);
 	return (last_pid);
